@@ -1,0 +1,71 @@
+<div class="education-section">
+  <div class="edu-list card">
+    <h2>Educación</h2>
+    <div *ngFor="let edu of education; let i = index" class="edu-item">
+      <!-- Cabecera compacta que sirve como trigger -->
+      <div class="edu-header" (click)="toggleEducation(i)">
+        <div class="edu-summary">
+          <span class="edu-title">{{ edu.degree || 'Título' }}</span>
+          <span class="edu-institution">{{ edu.institution || 'Institución' }}</span>
+        </div>
+        <span class="toggle-icon">{{ isExpanded[i] ? '▼' : '►' }}</span>
+      </div>
+      
+      <!-- Contenido desplegable -->
+      <div class="edu-details" [ngClass]="{'expanded': isExpanded[i]}">
+        <div class="input-group">
+          <label for="degree-{{i}}">Título</label>
+          <input type="text" id="degree-{{i}}" class="txt" [(ngModel)]="edu.degree" placeholder="Título">
+        </div>
+        
+        <div class="input-group">
+          <label for="institution-{{i}}">Institución</label>
+          <input type="text" id="institution-{{i}}" class="txt" [(ngModel)]="edu.institution" placeholder="Institución">
+        </div>
+        
+        <div class="date-fields">
+          <div class="input-group">
+            <label for="startDate-{{i}}">Fecha de inicio</label>
+            <input type="text" id="startDate-{{i}}" class="txt date-input" [(ngModel)]="edu.startDate" placeholder="Fecha de inicio">
+          </div>
+          <div class="input-group">
+            <label for="endDate-{{i}}">Fecha de finalización</label>
+            <input type="text" id="endDate-{{i}}" class="txt date-input" [(ngModel)]="edu.endDate" placeholder="Fecha de finalización">
+          </div>
+        </div>
+        
+        <div class="button-group">
+          <button class="btn delete" (click)="deleteEducation(edu.id)">Borrar</button>
+          <button class="btn update" (click)="actualizarEducation(edu.id!)">Actualizar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="edu-form card">
+    <h2>Agregar</h2>
+    <form (ngSubmit)="AgregarEducation()">
+      <div class="input-group">
+        <label for="new-degree">Título</label>
+        <input type="text" id="new-degree" class="txt" name="Degree" placeholder="Título" [(ngModel)]="myEducation.degree">
+      </div>
+      
+      <div class="input-group">
+        <label for="new-institution">Institución</label>
+        <input type="text" id="new-institution" class="txt" name="institution" placeholder="Institución" [(ngModel)]="myEducation.institution">
+      </div>
+      
+      <div class="date-fields">
+        <div class="input-group">
+          <label for="new-startDate">Fecha de inicio</label>
+          <input type="text" id="new-startDate" class="txt date-input" name="startDate" placeholder="Fecha de inicio" [(ngModel)]="myEducation.startDate">
+        </div>
+        <div class="input-group">
+          <label for="new-endDate">Fecha de finalización</label>
+          <input type="text" id="new-endDate" class="txt date-input" name="endDate" placeholder="Fecha de finalización" [(ngModel)]="myEducation.endDate">
+        </div>
+      </div>
+      <button type="submit" class="btn submit">{{btntxt}}</button>
+    </form>
+  </div>
+</div>

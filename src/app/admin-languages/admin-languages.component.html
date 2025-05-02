@@ -1,0 +1,71 @@
+<div class="language-section">
+  <h2>Idiomas</h2>
+
+  <!-- Formulario para agregar -->
+  <div class="card">
+    <form (ngSubmit)="AgregarLanguage()">
+      <div class="input-group">
+        <label for="language">Idioma</label>
+        <input
+          type="text"
+          id="language"
+          class="txt"
+          name="name"
+          placeholder="Escribe aquí"
+          [(ngModel)]="myLanguage.name"
+        />
+      </div>
+
+      <div class="input-group">
+        <label for="percentage">Nivel (%)</label>
+        <input
+          type="number"
+          id="percentage"
+          class="txt"
+          name="level"
+          placeholder="Nivel del 1 al 100"
+          [(ngModel)]="myLanguage.level"
+        />
+      </div>
+
+      <button type="submit" class="btn submit">Nuevo</button>
+    </form>
+  </div>
+
+  <!-- Lista editable -->
+  <div class="card">
+    <h3>Tus idiomas</h3>
+    <div *ngFor="let language of languages; let i = index" class="language-item">
+      <div class="input-group">
+        <label for="lang-name-{{i}}">Idioma</label>
+        <input
+          type="text"
+          id="lang-name-{{i}}"
+          class="txt"
+          [(ngModel)]="language.name"
+          placeholder="Idioma"
+        />
+      </div>
+
+      <div class="input-group">
+        <label for="lang-level-{{i}}">Nivel (%)</label>
+        <input
+          type="number"
+          id="lang-level-{{i}}"
+          class="txt"
+          [(ngModel)]="language.level"
+          placeholder="Nivel del 1 al 100"
+        />
+      </div>
+
+      <div class="progress-bar">
+        <div class="progress-fill" [style.width.%]="language.level"></div>
+      </div>
+
+      <div class="button-group">
+        <button type="button" class="btn delete" (click)="deleteLanguage(language.id)">Borrar</button>
+        <button type="button" class="btn update" (click)="actualizarLanguage(language.id!)">Actualizar</button>
+      </div>
+    </div>
+  </div>
+</div>

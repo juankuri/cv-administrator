@@ -1,0 +1,142 @@
+.experience-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-extra-large);
+  width: 100%;
+  max-width: 600px;
+}
+
+.card {
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  color: var(--text-medium);
+}
+
+.exp-list h2,
+.exp-form h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  font-weight: 700;
+}
+
+.exp-item {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border-medium);
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+  width: 100%;
+}
+
+.input-group.half {
+  width: 100%;
+}
+
+@media (min-width: 601px) {
+  .input-group.half {
+    width: 100%;
+    display: inline-flex;
+    margin-right: 2%;
+  }
+}
+
+.input-group label {
+  font-size: 0.9rem;
+  margin-bottom: 0.3rem;
+  font-weight: 500;
+  color: var(--text-darker);
+}
+
+input.txt {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--border-medium);
+  border-radius: 5px;
+  background: rgba(255, 255, 255, 0.2);
+  color: var(--text-medium);
+  font-size: 1rem;
+  margin-bottom: 0;
+}
+
+input.txt:focus {
+  outline: none;
+  box-shadow: var(--border-medium);
+}
+
+input.txt::placeholder {
+  color: var(--text-medium);
+  opacity: 0.7;
+}
+
+.button-group {
+  display: flex;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+button.btn {
+  padding: 0.5rem 1.25rem;
+  border-radius: 5px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  background-color: var(--color-burgundy);
+  color: white;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  border: none;
+}
+
+button.btn:hover {
+  background-color: var(--color-burgundy);
+  transform: scale(1.05);
+}
+
+button.submit {
+  width: 100%;
+  margin-top: 0.5rem;
+}
+
+button.delete {
+  background-color: var(--color-burgundy);
+}
+
+button.delete:hover {
+  background-color: var(--color-burgundy);
+}
+
+button.update {
+  background-color: var(--color-burgundy);
+}
+
+.button-group button {
+  flex: 1;
+}
+
+@media (max-width: 600px) {
+  .experience-section {
+    padding: 1rem;
+  }
+
+  .card {
+    padding: 1.5rem;
+  }
+
+  .button-group {
+    flex-direction: column;
+  }
+}
+
+@media (min-width: 601px) {
+  .button-group {
+    display: flex;
+    flex-direction: row;
+  }
+}

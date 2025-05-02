@@ -1,0 +1,37 @@
+<div class="header-section">
+    <div class="header-title card">
+      <h2>Tu informacion</h2>
+    </div>
+  
+    <div class="header-form card" *ngIf="header">
+      <div class="image-preview" *ngIf="header.photoUrl">
+        <img [src]="header.photoUrl" alt="Vista previa" />
+      </div>
+  
+      <form (ngSubmit)="actualizarHeader()">
+        <label>Nombre</label>
+        <input type="text" class="txt" [(ngModel)]="header.name" name="name" placeholder="Nombre">
+  
+        <label>Meta de vida</label>
+        <input type="text" class="txt" [(ngModel)]="header.goalLife" name="goalLife" placeholder="Meta de vida">
+  
+        <label>URL de Foto</label>
+        <input type="text" class="txt" [(ngModel)]="header.photoUrl" name="photoUrl" placeholder="URL">
+  
+        <label>Correo Electrónico</label>
+        <input type="text" class="txt" [(ngModel)]="header.email" name="email" placeholder="Email">
+  
+        <label>Teléfono</label>
+        <input type="text" class="txt" [(ngModel)]="header.phoneNumber" name="phoneNumber" placeholder="Teléfono">
+  
+        <label>Ubicación</label>
+        <input type="text" class="txt" [(ngModel)]="header.location" name="location" placeholder="Ubicación">
+  
+        <label>Red Social</label>
+        <input type="text" class="txt" [(ngModel)]="header.socialNetwork" name="socialNetwork" placeholder="Red social">
+        
+        <button type="submit" class="btn submit">Guardar cambios</button>
+      </form>
+    </div>
+  </div>
+  

@@ -1,0 +1,78 @@
+<div class="experience-section">
+  <div class="exp-form card">
+    <h2>Nueva Experiencia Laboral</h2>
+    <form (ngSubmit)="AgregarJob()">
+      <div class="input-group">
+        <label for="new-job-start">Inicio</label>
+        <input type="text" id="new-job-start" class="txt" placeholder="mm/yyyy" [(ngModel)]="myWorkExperience.starDate" name="startDate">
+      </div>
+
+      <div class="input-group">
+        <label for="new-job-end">Fin</label>
+        <input type="text" id="new-job-end" class="txt" placeholder="mm/yyyy" [(ngModel)]="myWorkExperience.endDate" name="endDate">
+      </div>
+
+      <div class="input-group">
+        <label for="new-job-location">Ubicación</label>
+        <input type="text" id="new-job-location" class="txt" placeholder="Ciudad, País" [(ngModel)]="myWorkExperience.location" name="location">
+      </div>
+
+      <div class="input-group">
+        <label for="new-job-position">Puesto</label>
+        <input type="text" id="new-job-position" class="txt" placeholder="Puesto desempeñado" [(ngModel)]="myWorkExperience.position" name="position">
+      </div>
+
+      <div class="input-group">
+        <label for="new-job-company">Empresa</label>
+        <input type="text" id="new-job-company" class="txt" placeholder="Nombre de la empresa" [(ngModel)]="myWorkExperience.company" name="company">
+      </div>
+
+      <div class="input-group">
+        <label for="new-job-accomplishments">Logros</label>
+        <input type="text" id="new-job-accomplishments" class="txt" placeholder="Principales logros" [(ngModel)]="myWorkExperience.accomplishments" name="accomplishments">
+      </div>
+
+      <button type="submit" class="btn submit">{{ btntxt }}</button>
+    </form>
+  </div>
+
+  <div class="exp-list card">
+    <h2>Experiencias Laborales</h2>
+    <div *ngFor="let job of workExperience; let i = index" class="exp-item">
+      <div class="input-group">
+        <label for="job-company-{{i}}">Empresa</label>
+        <input type="text" id="job-company-{{i}}" class="txt" [(ngModel)]="job.company" placeholder="Nombre de la empresa">
+      </div>
+      
+      <div class="input-group">
+        <label for="job-position-{{i}}">Puesto</label>
+        <input type="text" id="job-position-{{i}}" class="txt" [(ngModel)]="job.position" placeholder="Puesto desempeñado">
+      </div>
+      
+      <div class="input-group half">
+        <label for="job-start-{{i}}">Inicio</label>
+        <input type="text" id="job-start-{{i}}" class="txt" [(ngModel)]="job.starDate" placeholder="mm/yyyy">
+      </div>
+      
+      <div class="input-group half">
+        <label for="job-end-{{i}}">Fin</label>
+        <input type="text" id="job-end-{{i}}" class="txt" [(ngModel)]="job.endDate" placeholder="mm/yyyy">
+      </div>
+      
+      <div class="input-group">
+        <label for="job-location-{{i}}">Ubicación</label>
+        <input type="text" id="job-location-{{i}}" class="txt" [(ngModel)]="job.location" placeholder="Ciudad, País">
+      </div>
+      
+      <div class="input-group">
+        <label for="job-accomplishments-{{i}}">Logros</label>
+        <input type="text" id="job-accomplishments-{{i}}" class="txt" [(ngModel)]="job.accomplishments" placeholder="Principales logros">
+      </div>
+      
+      <div class="button-group">
+        <button class="btn delete" (click)="deleteJob(job.id)">Eliminar</button>
+        <button class="btn update" (click)="actualizarWorkExperience(job.id!)">Actualizar</button>
+      </div>
+    </div>
+  </div>
+</div>

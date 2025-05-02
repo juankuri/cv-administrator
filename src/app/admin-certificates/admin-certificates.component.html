@@ -1,0 +1,34 @@
+<div class="certificate-section">
+  <div class="cert-form card">
+    <h2>Nuevo Certificado</h2>
+    <form (ngSubmit)="AgregarCertificates()">
+      <div class="input-group">
+        <label for="new-cert-title">Título</label>
+        <input type="text" id="new-cert-title" class="txt" name="title" placeholder="Título" [(ngModel)]="myCertificates.title">
+      </div>
+      <div class="input-group">
+        <label for="new-cert-description">Descripción</label>
+        <input type="text" id="new-cert-description" class="txt" name="description" placeholder="Descripción" [(ngModel)]="myCertificates.description">
+      </div>
+      <button type="submit" class="btn submit">Agregar</button>
+    </form>
+  </div>
+
+  <div class="cert-list card">
+    <h2>Logros y Certificados</h2>
+    <div *ngFor="let cert of certificates; let i = index" class="cert-item">
+      <div class="input-group">
+        <label for="cert-title-{{i}}">Título</label>
+        <input type="text" id="cert-title-{{i}}" class="txt" [(ngModel)]="cert.title" placeholder="Título">
+      </div>
+      <div class="input-group">
+        <label for="cert-desc-{{i}}">Descripción</label>
+        <input type="text" id="cert-desc-{{i}}" class="txt" [(ngModel)]="cert.description" placeholder="Descripción">
+      </div>
+      <div class="button-group">
+        <button class="btn delete" (click)="deleteCertificate(cert.id)">Eliminar</button>
+        <button class="btn update" (click)="actualizarCertificates(cert.id!)">Actualizar</button>
+      </div>
+    </div>
+  </div>
+</div>

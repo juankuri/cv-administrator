@@ -1,0 +1,51 @@
+<div class="skills-section">
+  <div class="skill-form card">
+    <h2>Nueva Habilidad</h2>
+    <form (ngSubmit)="AgregarSkill()">
+      <div class="input-group">
+        <label for="new-skill-name">Nombre</label>
+        <input 
+          type="text" 
+          id="new-skill-name" 
+          class="txt" 
+          name="skill" 
+          placeholder="Nombre de la habilidad" 
+          [(ngModel)]="mySkill.name"
+        >
+      </div>
+      <div class="input-group">
+        <label for="new-skill-level">Nivel</label>
+        <input 
+          type="number" 
+          id="new-skill-level" 
+          class="txt" 
+          name="level" 
+          placeholder="Nivel de 1 a 100" 
+          [(ngModel)]="mySkill.level"
+        >
+      </div>
+      <button type="submit" class="btn submit">Agregar</button>
+    </form>
+  </div>
+
+  <div class="skills-list card">
+    <h2>Tus Habilidades</h2>
+    <div *ngFor="let skill of skills; let i = index" class="skill-item">
+      <div class="input-group">
+        <label for="skill-name-{{i}}">Nombre</label>
+        <input type="text" id="skill-name-{{i}}" class="txt" [(ngModel)]="skill.name" placeholder="Nombre de la habilidad">
+      </div>
+      <div class="input-group">
+        <label for="skill-level-{{i}}">Nivel</label>
+        <input type="number" id="skill-level-{{i}}" class="txt" [(ngModel)]="skill.level" placeholder="Nivel de 1 a 100">
+      </div>
+      <div class="progress-bar">
+        <div class="progress-fill" [style.width.%]="skill.level"></div>
+      </div>
+      <div class="button-group">
+        <button class="btn delete" (click)="deleteSkill(skill.id)">Eliminar</button>
+        <button class="btn update" (click)="actualizarSkills(skill.id!)">Actualizar</button>
+      </div>
+    </div>
+  </div>
+</div>

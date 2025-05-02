@@ -1,0 +1,24 @@
+<div class="dashboard-container">
+  <div class="sidebar">
+    <div class="sidebar-header">
+      <h1>Panel de Administracion</h1>
+      <p>Tu CV</p>
+    </div>
+    <nav>
+      <ul>
+        <li><a routerLink="/header" routerLinkActive="active">Información Personal</a></li>
+        <li><a routerLink="/education" routerLinkActive="active">Educación</a></li>
+        <li><a routerLink="/workexperience" routerLinkActive="active">Experiencia</a></li>
+        <li><a routerLink="/skills" routerLinkActive="active">Habilidades</a></li>
+        <li><a routerLink="/certificates" routerLinkActive="active">Certificados</a></li>
+        <li><a routerLink="/languages" routerLinkActive="active">Idiomas</a></li>
+        <li><a routerLink="/interests" routerLinkActive="active">Intereses</a></li>
+      </ul>
+    </nav>
+  </div>
+
+  <div class="main-content">
+    <router-outlet></router-outlet>
+    
+  </div>
+</div>

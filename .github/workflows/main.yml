@@ -1,0 +1,22 @@
+name: Angular_DockerImage
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  angular_deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Docker login
+        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USER }}" --password-stdin
+
+      - name: Build Docker image
+        run: docker build -t ${{ secrets.DOCKER_USER }}/admincv:${{ github.sha }} .
+
+      - name: Push Docker image
+        run: docker push ${{ secrets.DOCKER_USER }}/admincv:${{ github.sha }}
