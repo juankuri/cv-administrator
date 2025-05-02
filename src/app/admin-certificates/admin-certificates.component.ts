@@ -9,50 +9,46 @@ import { map } from 'rxjs/operators';
   styleUrl: './admin-certificates.component.css'
 })
 export class AdminCertificatesComponent {
+  certificates: Certificates[] = [];
+  myCertificates: Certificates = new Certificates();
+  isExpanded: boolean[] = [];
 
-
-  itemCount: number = 0;
-  btntxt: string = "Agregar"
-  goalText: string="";
-  certificates: Certificates [] = [];
-  myCertificates : Certificates = new Certificates();
-   
-   constructor(public certificatesService : CertificatesService)
-   {
-    console.log(this.certificatesService);
+  constructor(public certificatesService: CertificatesService) {
     this.certificatesService.getCertificates().snapshotChanges().pipe(
-      map(changes => 
+      map(changes =>
         changes.map(c =>
-        ({id: c.payload.doc.id, ...c.payload.doc.data()})
+          ({ id: c.payload.doc.id, ...c.payload.doc.data() })
         )
       )
-     ).subscribe(data => {
+    ).subscribe(data => {
       this.certificates = data;
-      console.log(this.certificates);
-     })
-   }
-   
-   AgregarCertificates(){
-    console.log(this.myCertificates);
+      this.isExpanded = new Array(this.certificates.length).fill(false);
+    });
+  }
+
+  toggleCertificate(index: number): void {
+    this.isExpanded[index] = !this.isExpanded[index];
+  }
+
+  AgregarCertificates() {
     this.certificatesService.createCertificate(this.myCertificates).then(() => {
-      console.log('Create new item succesfully!');
-    })   
-   }
+      this.myCertificates = new Certificates();
+    });
+  }
 
-   deleteCertificate(id? : string){
-     this.certificatesService.deleteCertificate(id).then(() => {
+  deleteCertificate(id?: string) {
+    this.certificatesService.deleteCertificate(id).then(() => {
       console.log('delete item succesfully');
-     });
-     console.log(id);
-   }
+    });
+  }
 
-   actualizarCertificates(id: string) {
+  actualizarCertificates(id: string) {
     const item = this.certificates.find(e => e.id === id);
     if (!item) {
       console.warn('Elemento no encontrado');
       return;
     }
-  
+
     this.certificatesService.updateCertificates(id, item).then(() => {
       console.log('Elemento actualizado exitosamente');
     });

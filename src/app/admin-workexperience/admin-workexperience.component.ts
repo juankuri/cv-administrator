@@ -6,55 +6,41 @@ import { map } from 'rxjs/operators';
 @Component({
   selector: 'app-admin-workexperience',
   templateUrl: './admin-workexperience.component.html',
-  styleUrl: './admin-workexperience.component.css'
+  styleUrls: ['./admin-workexperience.component.css']
 })
 export class AdminWorkexperienceComponent {
-
-  itemCount: number = 0;
-  btntxt: string = "Agregar";
-  goalText: String = "";
+  btntxt = 'Agregar';
   workExperience: WorkExperience[] = [];
-  myWorkExperience: WorkExperience = new WorkExperience();
+  myWorkExperience = new WorkExperience();
+  isExpExperienced: boolean[] = [];
 
   constructor(public workExperienceService: WorkExperienceService) {
-    console.log(this.workExperienceService);
     this.workExperienceService.getWorkExperience().snapshotChanges().pipe(
-      map(changes =>
-        changes.map(c =>
-          ({ id: c.payload.doc.id, ...c.payload.doc.data() })
-        )
-      )
+      map(changes => changes.map(c => ({ id: c.payload.doc.id, ...c.payload.doc.data() })))
     ).subscribe(data => {
       this.workExperience = data;
-      console.log(this.workExperience);
+      this.isExpExperienced = new Array(this.workExperience.length).fill(false);
     });
   }
 
-  AgregarJob(){
-    console.log(this.myWorkExperience);
+  toggleExperience(index: number): void {
+    this.isExpExperienced[index] = !this.isExpExperienced[index];
+  }
+
+  AgregarJob(): void {
     this.workExperienceService.createWorkExperience(this.myWorkExperience).then(() => {
-      console.log('Created new item successfully');
+      this.myWorkExperience = new WorkExperience();
     });
   }
 
-  deleteJob(id? : string){
-    this.workExperienceService.deleteWorkExperience(id).then(() => {
-      console.log('delete item successfully');
-    });
-    console.log(id);
+  deleteJob(id?: string): void {
+    this.workExperienceService.deleteWorkExperience(id);
   }
 
-  actualizarWorkExperience(id: string) {
+  actualizarWorkExperience(id: string): void {
     const item = this.workExperience.find(e => e.id === id);
-    if (!item) {
-      console.warn('Elemento no encontrado');
-      return;
+    if (item) {
+      this.workExperienceService.updateWorkExperience(id, item);
     }
-  
-    this.workExperienceService.updateWorkExperience(id, item).then(() => {
-      console.log('Elemento actualizado exitosamente');
-    });
   }
 }
-
-

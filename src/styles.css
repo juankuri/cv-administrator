@@ -1,7 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700&display=swap');
 /* dummy comment */
 :root {
-  /* Colores base */
   --bg-beige-light: #f8f5f2;
   --text-dark: #333333;
   --boder-dark: #333333;
@@ -34,11 +33,9 @@
   --spacing-large: 1.5rem;
   --spacing-extra-large: 2rem;
 
-  /* Bordes */
   --border-radius-small: 4px;
   --border-radius-medium: 19px;
 
-  /* Transiciones */
   --transition-default: all 0.3s ease;
   --transition-short: transform 0.2s ease;
 }

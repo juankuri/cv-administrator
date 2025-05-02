@@ -16,18 +16,28 @@
 
   <div class="cert-list card">
     <h2>Logros y Certificados</h2>
-    <div *ngFor="let cert of certificates; let i = index" class="cert-item">
-      <div class="input-group">
-        <label for="cert-title-{{i}}">Título</label>
-        <input type="text" id="cert-title-{{i}}" class="txt" [(ngModel)]="cert.title" placeholder="Título">
+    <div *ngFor="let cert of certificates; let i = index" class="cert-item" [class.expanded]="isExpanded[i]">
+      <div class="skill-header" (click)="toggleCertificate(i)">
+        <div class="skill-summary">
+          <span class="skill-name">{{ cert.title }}</span>
+          <span class="skill-level">{{ cert.description }}</span>
+        </div>
+        <span class="toggle-icon">{{ isExpanded[i] ? '▲' : '▼' }}</span>
       </div>
-      <div class="input-group">
-        <label for="cert-desc-{{i}}">Descripción</label>
-        <input type="text" id="cert-desc-{{i}}" class="txt" [(ngModel)]="cert.description" placeholder="Descripción">
-      </div>
-      <div class="button-group">
-        <button class="btn delete" (click)="deleteCertificate(cert.id)">Eliminar</button>
-        <button class="btn update" (click)="actualizarCertificates(cert.id!)">Actualizar</button>
+
+      <div class="cert-details" *ngIf="isExpanded[i]">
+        <div class="input-group">
+          <label for="cert-title-{{i}}">Título</label>
+          <input type="text" id="cert-title-{{i}}" class="txt" [(ngModel)]="cert.title" name="title-{{i}}" placeholder="Título">
+        </div>
+        <div class="input-group">
+          <label for="cert-desc-{{i}}">Descripción</label>
+          <input type="text" id="cert-desc-{{i}}" class="txt" [(ngModel)]="cert.description" name="desc-{{i}}" placeholder="Descripción">
+        </div>
+        <div class="button-group">
+          <button class="btn delete" (click)="deleteCertificate(cert.id)">Eliminar</button>
+          <button class="btn update" (click)="actualizarCertificates(cert.id!)">Actualizar</button>
+        </div>
       </div>
     </div>
   </div>

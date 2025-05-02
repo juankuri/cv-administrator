@@ -3,54 +3,44 @@ import { LanguagesService } from '../services/languages-service/languages.servic
 import { Languages } from '../models/languages/languages.model';
 import { map } from 'rxjs/operators';
 
-
 @Component({
   selector: 'app-admin-languages',
   templateUrl: './admin-languages.component.html',
-  styleUrl: './admin-languages.component.css'
+  styleUrls: ['./admin-languages.component.css']
 })
 export class AdminLanguagesComponent {
-  languages : Languages [] = [];
-  myLanguage : Languages = new Languages();
+  languages: Languages[] = [];
+  myLanguage: Languages = new Languages();
+  isExpanded: boolean[] = [];
 
-   constructor(public languagesService : LanguagesService)
-   {
-     console.log(this.languagesService);
-     this.languagesService.getLanguage().snapshotChanges().pipe(
-      map(changes => 
-        changes.map(c =>
-        ({id: c.payload.doc.id, ...c.payload.doc.data()})
-        )
+  constructor(public languagesService: LanguagesService) {
+    this.languagesService.getLanguage().snapshotChanges().pipe(
+      map(changes =>
+        changes.map(c => ({ id: c.payload.doc.id, ...c.payload.doc.data() }))
       )
-     ).subscribe(data => {
+    ).subscribe(data => {
       this.languages = data;
-      console.log(this.languages);
-     })
-   }
+      this.isExpanded = new Array(this.languages.length).fill(false);
+    });
+  }
 
-   AgregarLanguage(){
-    console.log(this.myLanguage);
+  toggleLanguage(index: number): void {
+    this.isExpanded[index] = !this.isExpanded[index];
+  }
+
+  agregarLanguage() {
     this.languagesService.createLanguage(this.myLanguage).then(() => {
-      console.log('created a new item successfully');
+      this.myLanguage = new Languages();
     });
-   }
+  }
 
-   deleteLanguage(id? : string){
-    this.languagesService.deleteLanguage(id).then(() => {
-      console.log('delete item successfully');
-    });
-    console.log(id);
-   }
+  deleteLanguage(id?: string) {
+    this.languagesService.deleteLanguage(id);
+  }
 
-   actualizarLanguage(id: string) {
+  actualizarLanguage(id: string) {
     const item = this.languages.find(e => e.id === id);
-    if (!item) {
-      console.warn('Elemento no encontrado');
-      return;
-    }
-  
-    this.languagesService.updateLanguage(id, item).then(() => {
-      console.log('Elemento actualizado exitosamente');
-    });
+    if (!item) return;
+    this.languagesService.updateLanguage(id, item);
   }
 }

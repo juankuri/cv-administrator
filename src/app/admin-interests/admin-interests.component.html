@@ -1,84 +1,61 @@
 <div class="interest-section">
   <h2>Intereses</h2>
 
-  <div class="card">
+  <div class="interest-form card">
     <h3>Agregar Interés</h3>
-    <form (ngSubmit)="AregarInterest()">
+    <form (ngSubmit)="agregarInterest()">
       <div class="input-group">
-        <label for="interest">Interés</label>
-        <input
-          type="text"
-          id="interest"
-          class="txt"
-          name="title" 
-          placeholder="Escribe aquí"
-          [(ngModel)]="myInterests.title" />
+        <label for="interest-title">Interés</label>
+        <input type="text" id="interest-title" class="txt" name="title"
+               placeholder="Escribe aquí" [(ngModel)]="myInterests.title" />
       </div>
-
       <div class="input-group">
-        <label for="description">Descripción</label> 
-        <textarea
-          id="description"
-          class="txt textarea"
-          name="description" 
-          placeholder="Escribe aquí"
-          [(ngModel)]="myInterests.description">
+        <label for="interest-desc">Descripción</label>
+        <textarea id="interest-desc" class="txt" name="description"
+                  placeholder="Escribe aquí" [(ngModel)]="myInterests.description">
         </textarea>
       </div>
-
       <div class="input-group">
-        <label for="icon">Icono</label> 
-        <input
-          type="text"
-          id="icon"
-          class="txt"
-          name="icon" 
-          placeholder="Clase del icono"
-          [(ngModel)]="myInterests.icon" />
+        <label for="interest-icon">Icono</label>
+        <input type="text" id="interest-icon" class="txt" name="icon"
+               placeholder="Clase del icono" [(ngModel)]="myInterests.icon" />
       </div>
-
       <button type="submit" class="btn">Guardar</button>
     </form>
   </div>
 
-  <div class="card">
+  <div class="interest-list card">
     <h3>Tus intereses</h3>
-    <div *ngFor="let interest of interests; let i = index" class="interest-item">
-      <div class="interest-card">
-        <div class="interest-content">
-        <div class="interest-icon">{{ interest.icon }}</div>
-        <div class="input-group">
-            <label for="interest-title-{{i}}">Interés</label>
-            <input 
-              type="text" 
-              id="interest-title-{{i}}" 
-              class="txt" 
-              [(ngModel)]="interest.title" 
-              placeholder="Interés">
-          </div>
-          <div class="input-group">
-            <label for="interest-desc-{{i}}">Descripción</label>
-            <textarea 
-              id="interest-desc-{{i}}" 
-              class="txt textarea" 
-              [(ngModel)]="interest.description" 
-              placeholder="Descripción">
-            </textarea>
-          </div>
-          <div class="input-group">
-            <label for="interest-icon-{{i}}">Icono</label>
-            <input 
-              type="text" 
-              id="interest-icon-{{i}}" 
-              class="txt" 
-              [(ngModel)]="interest.icon" 
-              placeholder="Clase del icono">
-          </div>
+    <div *ngFor="let interest of interests; let i = index"
+         class="interest-item" [class.expanded]="isExpanded[i]">
+      <div class="interest-header" (click)="toggleInterest(i)">
+        <div class="interest-summary">
+          <span class="interest-title">{{interest.title}}</span>
+          <span class="interest-desc">{{interest.description}}</span>
         </div>
+        <span class="toggle-icon">{{isExpanded[i] ? '▲' : '▼'}}</span>
       </div>
-      <div class="button-group">
-        <button type="button" class="btn danger" (click)="deleteInterest(interest.id)">Borrar</button>
-        <button type="button" class="btn update" (click)="actualizarInterest(interest.id!)">Actualizar</button>
+      <div class="interest-details">
+        <div class="input-group">
+          <label for="int-title-{{i}}">Interés</label>
+          <input type="text" id="int-title-{{i}}" class="txt"
+                 [(ngModel)]="interest.title" name="title-{{i}}" />
+        </div>
+        <div class="input-group">
+          <label for="int-desc-{{i}}">Descripción</label>
+          <textarea id="int-desc-{{i}}" class="txt"
+                    [(ngModel)]="interest.description" name="description-{{i}}">
+          </textarea>
+        </div>
+        <div class="input-group">
+          <label for="int-icon-{{i}}">Icono</label>
+          <input type="text" id="int-icon-{{i}}" class="txt"
+                 [(ngModel)]="interest.icon" name="icon-{{i}}" />
+        </div>
+        <div class="button-group">
+          <button class="btn" (click)="deleteInterest(interest.id)">Eliminar</button>
+          <button class="btn" (click)="actualizarInterest(interest.id!)">Actualizar</button>
+        </div>
       </div>
     </div>
   </div>

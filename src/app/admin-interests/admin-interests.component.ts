@@ -6,50 +6,41 @@ import { map } from 'rxjs/operators';
 @Component({
   selector: 'app-admin-interests',
   templateUrl: './admin-interests.component.html',
-  styleUrl: './admin-interests.component.css'
+  styleUrls: ['./admin-interests.component.css']
 })
 export class AdminInterestsComponent {
+  interests: Interests[] = [];
+  myInterests: Interests = new Interests();
+  isExpanded: boolean[] = [];
 
-  myInterests : Interests = new (Interests);
-  interests : Interests [] = []
-
-  constructor(public interestsService : InterestsService)
-  {
-    console.log(this.interestsService);
+  constructor(public interestsService: InterestsService) {
     this.interestsService.getInterests().snapshotChanges().pipe(
-      map(changes => 
-        changes.map(c =>
-        ({id: c.payload.doc.id, ...c.payload.doc.data()})
-        )
+      map(changes =>
+        changes.map(c => ({ id: c.payload.doc.id, ...c.payload.doc.data() }))
       )
     ).subscribe(data => {
       this.interests = data;
-      console.log(this.interests);
-    })
+      this.isExpanded = new Array(this.interests.length).fill(false);
+    });
   }
 
-  AregarInterest(){
-    console.log(this.myInterests);
+  toggleInterest(index: number): void {
+    this.isExpanded[index] = !this.isExpanded[index];
+  }
+
+  agregarInterest(): void {
     this.interestsService.createInterests(this.myInterests).then(() => {
-      console.log('created new item successfully');
+      this.myInterests = new Interests();
     });
   }
 
-  deleteInterest(id? : string){
-    this.interestsService.deleteInterests(id).then(() => {
-      console.log('delete item successfully');
-    });
+  deleteInterest(id?: string): void {
+    this.interestsService.deleteInterests(id);
   }
 
-  actualizarInterest(id: string) {
+  actualizarInterest(id: string): void {
     const item = this.interests.find(e => e.id === id);
-    if (!item) {
-      console.warn('Elemento no encontrado');
-      return;
-    }
-  
-    this.interestsService.updateInterest(id, item).then(() => {
-      console.log('Elemento actualizado exitosamente');
-    });
+    if (!item) return;
+    this.interestsService.updateInterest(id, item);
   }
 }

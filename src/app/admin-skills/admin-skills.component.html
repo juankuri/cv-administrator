@@ -30,21 +30,43 @@
 
   <div class="skills-list card">
     <h2>Tus Habilidades</h2>
-    <div *ngFor="let skill of skills; let i = index" class="skill-item">
-      <div class="input-group">
-        <label for="skill-name-{{i}}">Nombre</label>
-        <input type="text" id="skill-name-{{i}}" class="txt" [(ngModel)]="skill.name" placeholder="Nombre de la habilidad">
+    <div *ngFor="let skill of skills; let i = index" class="skill-item" [class.expanded]="isExpanded[i]">
+      <div class="skill-header" (click)="toggleSkill(i)">
+        <div class="skill-summary">
+          <span class="skill-name">{{ skill.name }}</span>
+          <span class="skill-level">Nivel: {{ skill.level }}</span>
+        </div>
+        <span class="toggle-icon">{{ isExpanded[i] ? '▲' : '▼' }}</span>
       </div>
-      <div class="input-group">
-        <label for="skill-level-{{i}}">Nivel</label>
-        <input type="number" id="skill-level-{{i}}" class="txt" [(ngModel)]="skill.level" placeholder="Nivel de 1 a 100">
-      </div>
-      <div class="progress-bar">
-        <div class="progress-fill" [style.width.%]="skill.level"></div>
-      </div>
-      <div class="button-group">
-        <button class="btn delete" (click)="deleteSkill(skill.id)">Eliminar</button>
-        <button class="btn update" (click)="actualizarSkills(skill.id!)">Actualizar</button>
+
+      <div class="skill-details" *ngIf="isExpanded[i]">
+        <div class="input-group">
+          <label for="skill-name-{{i}}">Nombre</label>
+          <input 
+            type="text" 
+            id="skill-name-{{i}}" 
+            class="txt" 
+            [(ngModel)]="skill.name" 
+            name="name-{{i}}" 
+            placeholder="Nombre de la habilidad">
+        </div>
+        <div class="input-group">
+          <label for="skill-level-{{i}}">Nivel</label>
+          <input 
+            type="number" 
+            id="skill-level-{{i}}" 
+            class="txt" 
+            [(ngModel)]="skill.level" 
+            name="level-{{i}}" 
+            placeholder="Nivel de 1 a 100">
+        </div>
+        <div class="progress-bar">
+          <div class="progress-fill" [style.width.%]="skill.level"></div>
+        </div>
+        <div class="button-group">
+          <button class="btn delete" (click)="deleteSkill(skill.id)">Eliminar</button>
+          <button class="btn update" (click)="actualizarSkills(skill.id!)">Actualizar</button>
+        </div>
       </div>
     </div>
   </div>

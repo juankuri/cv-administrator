@@ -14,8 +14,7 @@ export class AdminEducationComponent {
   goalText: string ="";
   education: Education[] = [];
   myEducation : Education = new Education();
-  isExpanded: boolean[] = []; // Array para controlar el estado de expansión
-
+  isExpanded: boolean[] = [];  
   constructor(public educationService : EducationService)
   {
     console.log(this.educationService);
@@ -27,13 +26,11 @@ export class AdminEducationComponent {
       )
     ).subscribe(data => {
       this.education = data;
-      // Inicializar todos los elementos como colapsados
       this.isExpanded = new Array(this.education.length).fill(false);
       console.log(this.education);
     });
   }
 
-  // Método para alternar la expansión de un elemento
   toggleEducation(index: number): void {
     this.isExpanded[index] = !this.isExpanded[index];
   }
@@ -42,7 +39,6 @@ export class AdminEducationComponent {
     console.log(this.myEducation);
     this.educationService.createEducation(this.myEducation).then(() => {
       console.log('create new item succesfully');
-      // Resetear el formulario después de agregar
       this.myEducation = new Education();
     });
   }

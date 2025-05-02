@@ -24,9 +24,58 @@
 .skill-item {
   display: flex;
   flex-direction: column;
+  border: 1px solid var(--border-medium);
+  border-radius: 8px;
+  overflow: hidden;
   margin-bottom: 2rem;
-  padding-bottom: 1rem;
-  border-bottom: 1px solid var(--border-medium);
+}
+
+.skill-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background-color: rgba(255, 255, 255, 0.05);
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.skill-header:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.skill-summary {
+  display: flex;
+  flex-direction: column;
+}
+
+.skill-name {
+  font-weight: 600;
+  color: var(--text-darker);
+}
+
+.skill-level {
+  font-size: 0.9rem;
+  color: var(--text-medium);
+  margin-top: 0.25rem;
+}
+
+.toggle-icon {
+  font-size: 1.25rem;
+  color: var(--text-medium);
+}
+
+.skill-details {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out, padding 0.3s ease;
+  padding: 0 1rem;
+}
+
+.skill-item.expanded .skill-details {
+  max-height: 500px;
+  padding: 1rem;
+  border-top: 1px solid var(--border-medium);
 }
 
 .input-group {
@@ -104,18 +153,6 @@ button.btn:hover {
 button.submit {
   width: 100%;
   margin-top: 0.5rem;
-}
-
-button.delete {
-  background-color: var(--color-burgundy);
-}
-
-button.delete:hover {
-  background-color: var(--color-burgundy);
-}
-
-button.update {
-  background-color: var(--color-burgundy);
 }
 
 .button-group button {

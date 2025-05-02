@@ -9,46 +9,40 @@ import { map } from 'rxjs/operators';
   styleUrl: './admin-skills.component.css'
 })
 export class AdminSkillsComponent {
-  skills : Skills [] = [];
-  mySkill : Skills = new Skills();
+  skills: Skills[] = [];
+  mySkill: Skills = new Skills();
+  isExpanded: boolean[] = [];
 
-  constructor(public skillsService : SkillsService)
-  {
-    console.log(this.skillsService);
+  constructor(public skillsService: SkillsService) {
     this.skillsService.getSkill().snapshotChanges().pipe(
-      map(changes => 
+      map(changes =>
         changes.map(c =>
-        ({id: c.payload.doc.id, ...c.payload.doc.data()})
+          ({ id: c.payload.doc.id, ...c.payload.doc.data() })
         )
       )
-     ).subscribe(data => {
+    ).subscribe(data => {
       this.skills = data;
-      console.log(this.skills);
-     })
-  } 
-
-  AgregarSkill(){
-    console.log(this.mySkill)
-    this.skillsService.createSkill(this.mySkill).then(() => {
-      console.log('new item created succesfully');
+      this.isExpanded = new Array(this.skills.length).fill(false);
     });
   }
 
-  deleteSkill(id? : string){
-   this.skillsService.deleteSkill(id).then(() => {
-    console.log('item deleted succesfully');
-   });
+  toggleSkill(index: number): void {
+    this.isExpanded[index] = !this.isExpanded[index];
+  }
+
+  AgregarSkill() {
+    this.skillsService.createSkill(this.mySkill).then(() => {
+      this.mySkill = new Skills();
+    });
+  }
+
+  deleteSkill(id?: string) {
+    this.skillsService.deleteSkill(id);
   }
 
   actualizarSkills(id: string) {
     const item = this.skills.find(e => e.id === id);
-    if (!item) {
-      console.warn('Elemento no encontrado');
-      return;
-    }
-  
-    this.skillsService.updateSkill(id, item).then(() => {
-      console.log('Elemento actualizado exitosamente');
-    });
+    if (!item) return;
+    this.skillsService.updateSkill(id, item);
   }
 }
